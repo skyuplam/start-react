@@ -1,0 +1,9 @@
+{
+  "name": "start-react",
+  "version": "0.1.0",
+  "description": "A boilerplate for starting react project.",
+  "main": "index.js",
+  "repository": "git@github.com:skyuplam/start-react.git",
+  "author": "Terrence Lam <skyuplam@gmail.com>",
+  "license": "MIT"
+}
