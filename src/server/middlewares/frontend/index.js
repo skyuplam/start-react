@@ -42,14 +42,14 @@ export const addDevMiddleware = (app, options) => {
   const { webpackConfig } = options;
   const clientBundler = webpack(webpackConfig);
   const clientMiddleware = devMiddleware(clientBundler, {
-    quiet: false,
-    noInfo: false,
+    quiet: true,
+    noInfo: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
     publicPath: webpackConfig.output.publicPath,
     index: 'index.html',
-    stats: { colors: true },
+    stats: 'error-only',
   });
 
   app.use(clientMiddleware);

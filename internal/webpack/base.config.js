@@ -5,20 +5,27 @@ import path from 'path';
 
 const webpackConfig = (options) => ({
   target: options.target || 'web',
+
   node: {
     __dirname: true,
     __filename: true,
   },
+
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
+
   devtool: options.devtool,
+
   performance: options.env === 'production' ? { hints: 'warning' } : false,
+
   entry: options.entry,
+
   output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
   }, options.output),
+
   plugins: options.plugins.concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -41,6 +48,7 @@ const webpackConfig = (options) => ({
       }],
     }),
   ]),
+
   module: {
     rules: [{
       test: /\.(js|jsx)$/,

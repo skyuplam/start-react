@@ -14,18 +14,26 @@ export default function generateHTML(options) {
   const inlineScript = body =>
     `<script type="text/javascript">${body}</script>`;
 
+  const attributes = helmet ? helmet.htmlAttributes.toString() : '';
+
   const html = `
   <!DOCTYPE html>
-  <html ${helmet ? helmet.htmlAttributes.toString() : ''}>
+  <html${attributes ? ` ${attributes}` : ''}>
     <head>
+      <meta charset="utf-8">
+      <!-- Make the page mobile compatible -->
+      <meta name="viewport" content="width=device-width,initial-scale=1">
       ${helmet ? helmet.title.toString() : ''}
       ${helmet ? helmet.meta.toString() : ''}
       ${helmet ? helmet.style.toString() : ''}
     </head>
     <body>
-      <div id="app">
-        ${renderedString || ''}
-      </div>
+      <section role="main" id="app">
+        <noscript>If you're seeing this message, that means <strong>JavaScript has been disabled on your browser</strong>, please <strong>enable JS</strong> to make this app work.</noscript>
+        <div>
+          ${renderedString || ''}
+        </div>
+      </section>
       ${initialState ?
         inilineScript(`window.__APP_STATE__=${serialize(initialState)}`)
         : ''}
@@ -33,5 +41,5 @@ export default function generateHTML(options) {
     </body>
   </html>
   `;
-  return html.replace(/\s+/g, '');  // Remove spaces to get rid of react warning
+  return html.replace(/\s{2,}/g, '');  // Remove spaces
 };

@@ -45,7 +45,7 @@ export default baseConfig({
     'transform-react-jsx-self',
     'transform-react-jsx-source',
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
   rules: [{
     test: /\.css$/,
     loader: 'happypack/loader',
