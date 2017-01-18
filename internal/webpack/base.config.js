@@ -17,7 +17,7 @@ const webpackConfig = (options) => ({
 
   devtool: options.devtool,
 
-  performance: options.env === 'production' ? { hints: 'warning' } : false,
+  performance: options.env === 'production' ? options.performance : false,
 
   entry: options.entry,
 
