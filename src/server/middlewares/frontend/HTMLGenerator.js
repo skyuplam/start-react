@@ -3,7 +3,7 @@ import config from '../../config';
 
 
 const scriptTag = (jsPath) =>
-  `<script type="text/javascript" src="${jsPath}"`;
+  `<script type="text/javascript" src="${jsPath}"></script>`;
 
 const scriptTags = (jsPaths) =>
   jsPath.map(scriptTag).join('/n');
@@ -14,7 +14,7 @@ export default function generateHTML(options) {
   const inlineScript = body =>
     `<script type="text/javascript">${body}</script>`;
 
-  return `
+  const html = `
   <!DOCTYPE html>
   <html ${helmet ? helmet.htmlAttributes.toString() : ''}>
     <head>
@@ -29,7 +29,9 @@ export default function generateHTML(options) {
       ${initialState ?
         inilineScript(`window.__APP_STATE__=${serialize(initialState)}`)
         : ''}
+      ${scriptTag('/static/bundle.js')}
     </body>
   </html>
   `;
+  return html.replace(/\s+/g, '');  // Remove spaces to get rid of react warning
 };
