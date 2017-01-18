@@ -6,6 +6,7 @@ import config from './config';
 import frontendMiddleware, { addDevMiddleware } from './middlewares/frontend';
 import errorHandlerMiddleware from './middlewares/errorHandler';
 import webpackClientConfig from '../../internal/webpack/client.dev.config';
+import clientBundle from './middlewares/clientBundle';
 
 
 const app = new Koa();
@@ -15,8 +16,11 @@ app.use(compress());
 
 // Frontend Middleware
 addDevMiddleware(app, { webpackConfig: webpackClientConfig });
-app.use(mount('/', frontendMiddleware()));
 
+// Config for serving client bundle
+app.use(mount('/static', clientBundle));
+
+app.use(mount('/', frontendMiddleware()));
 
 // Error Handler
 app.use(errorHandlerMiddleware);
