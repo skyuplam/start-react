@@ -6,7 +6,6 @@ import config from './config';
 import frontendMiddleware, { addDevMiddleware } from './middlewares/frontend';
 import errorHandlerMiddleware from './middlewares/errorHandler';
 import clientBundle from './middlewares/clientBundle';
-import webpackClientConfig from '../../internal/webpack/client.dev.config';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -17,6 +16,7 @@ app.use(compress());
 
 // Frontend Middleware
 if (isDev) {
+  const webpackConfig = require('../../internal/webpack/client.dev.config.js').default;
   addDevMiddleware(app, { webpackConfig: webpackClientConfig });
 }
 
