@@ -5,9 +5,10 @@ import compress from 'koa-compress';
 import config from './config';
 import frontendMiddleware, { addDevMiddleware } from './middlewares/frontend';
 import errorHandlerMiddleware from './middlewares/errorHandler';
-import webpackClientConfig from '../../internal/webpack/client.dev.config';
 import clientBundle from './middlewares/clientBundle';
+import webpackClientConfig from '../../internal/webpack/client.dev.config';
 
+const isDev = process.env.NODE_ENV !== 'production';
 
 const app = new Koa();
 
@@ -15,7 +16,9 @@ const app = new Koa();
 app.use(compress());
 
 // Frontend Middleware
-addDevMiddleware(app, { webpackConfig: webpackClientConfig });
+if (isDev) {
+  addDevMiddleware(app, { webpackConfig: webpackClientConfig });
+}
 
 // Config for serving client bundle
 app.use(mount('/static', clientBundle));

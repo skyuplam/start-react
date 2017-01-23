@@ -56,6 +56,7 @@ export const addDevMiddleware = (app, options) => {
   app.use(hotMiddleware(clientBundler));
 };
 
+
 const middleware = (options) => async function frontendMiddleware(ctx, next) {
   const { request, response } = ctx;
 
