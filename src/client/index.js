@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
+// import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router';
 
 import App from './containers/App';
+import ReactHotReloader from './components/ReactHotReloader';
 import createStore from './store';
 
 const initialState = window.__APP_STATE__ || {};
@@ -14,11 +15,11 @@ const rootEl = document.getElementById('app');
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
-      <AppContainer>
+      <ReactHotReloader>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
-      </AppContainer>
+      </ReactHotReloader>
     </Provider>,
     rootEl
   );

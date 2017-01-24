@@ -5,6 +5,8 @@ import config from '../../config';
 const scriptTag = (jsPath) =>
   `<script type="text/javascript" src="${jsPath}"></script>`;
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const scriptTags = (jsPaths) =>
   jsPath.map(scriptTag).join('/n');
 

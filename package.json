@@ -7,6 +7,7 @@
   "author": "Terrence Lam <skyuplam@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "immutable": "^3.8.1",
     "koa": "next",
     "koa-compress": "next",
     "koa-mount": "next",
@@ -18,6 +19,7 @@
     "react-redux": "^5.0.2",
     "react-router": "next",
     "redux": "^3.6.0",
+    "redux-immutable": "^3.0.10",
     "serialize-javascript": "^1.3.0"
   },
   "scripts": {
@@ -43,7 +45,7 @@
     "eventsource-polyfill": "^0.9.6",
     "extract-text-webpack-plugin": "beta",
     "happypack": "^3.0.2",
-    "koa-webpack-middleware": "^1.0.3",
+    "koa-webpack-middleware": "git://github.com/skyuplam/koa-webpack-middleware.git#local-git",
     "react-hot-loader": "next",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",

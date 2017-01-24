@@ -51,8 +51,17 @@ export const addDevMiddleware = (app, options) => {
     stats: 'error-only',
   });
 
+  clientBundler.plugin('done', (stats) => {
+    if (stats.hasErrors()) {
+      console.error(stats.toString());
+    } else {
+      console.log('Running the latest changes...');
+    }
+  })
+
   app.use(clientMiddleware);
   app.use(hotMiddleware(clientBundler));
+
 };
 
 

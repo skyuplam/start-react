@@ -11,8 +11,10 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const app = new Koa();
 
-// Gzip compress the response
-app.use(compress());
+if (!isDev) {
+  // Gzip compress the response
+  app.use(compress());
+}
 
 // Frontend Middleware
 if (isDev) {

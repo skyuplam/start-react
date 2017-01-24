@@ -5,7 +5,7 @@ import { resolve } from 'path';
 
 // middleware to serve client bundle
 export default serve(
-  resolve(process.cwd(), 'static'),
+  resolve(process.cwd(), 'build'),
   { maxAge: '200d' }
 );
 
