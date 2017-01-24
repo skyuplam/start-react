@@ -8,13 +8,12 @@ const App = () =>
     <Match
       exactly
       pattern="/"
-      render={(props) =>
-        <p>Home</p>
+      render={() =>
+        (<p>Home</p>)
       }
-    >
-    </Match>
-    <Miss component={(props) => <p>Page Not Found</p>} />
-  </div>
+    />
+    <Miss component={() => (<p>Page Not Found</p>)} />
+  </div>;
 
 
 export default App;

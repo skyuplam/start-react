@@ -1,19 +1,19 @@
 import serialize from 'serialize-javascript';
-import config from '../../config';
+// import config from '../../config';
 
 
 const scriptTag = (jsPath) =>
   `<script type="text/javascript" src="${jsPath}"></script>`;
 
-const isDev = process.env.NODE_ENV === 'development';
+// const isDev = process.env.NODE_ENV === 'development';
 
-const scriptTags = (jsPaths) =>
-  jsPath.map(scriptTag).join('/n');
+// const scriptTags = (jsPaths) =>
+  // jsPath.map(scriptTag).join('/n');
 
 export default function generateHTML(options) {
   const { renderedString, initialState, helmet } = options;
 
-  const inlineScript = body =>
+  const inlineScript = (body) =>
     `<script type="text/javascript">${body}</script>`;
 
   const attributes = helmet ? helmet.htmlAttributes.toString() : '';
@@ -37,11 +37,11 @@ export default function generateHTML(options) {
         </div>
       </section>
       ${initialState ?
-        inilineScript(`window.__APP_STATE__=${serialize(initialState)}`)
+        inlineScript(`window.__APP_STATE__=${serialize(initialState)}`)
         : ''}
       ${scriptTag('/static/bundle.js')}
     </body>
   </html>
   `;
   return html.replace(/\s{2,}/g, '');  // Remove spaces
-};
+}

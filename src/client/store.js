@@ -16,7 +16,9 @@ export default function configureStore(initialState = {}) {
   const store = createStore(
     createReducer(),
     fromJS(initialState),
+    composeEnhancers(),
   );
 
   return store;
-};
+}
+

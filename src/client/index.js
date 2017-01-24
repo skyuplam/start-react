@@ -8,6 +8,7 @@ import App from './containers/App';
 import ReactHotReloader from './components/ReactHotReloader';
 import createStore from './store';
 
+/* eslint-disable no-underscore-dangle */
 const initialState = window.__APP_STATE__ || {};
 const store = createStore(initialState);
 
@@ -23,7 +24,7 @@ const render = (Component) => {
     </Provider>,
     rootEl
   );
-}
+};
 
 render(App);
 

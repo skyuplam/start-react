@@ -3,7 +3,7 @@
  *
  */
 
-const middleware = (options) => async function errorHandlerMiddleware(ctx, next) {
+const middleware = () => async function errorHandlerMiddleware(ctx, next) {
   try {
     await next();
   } catch (err) {

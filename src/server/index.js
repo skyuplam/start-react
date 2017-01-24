@@ -6,6 +6,8 @@ import config from './config';
 import frontendMiddleware, { addDevMiddleware } from './middlewares/frontend';
 import errorHandlerMiddleware from './middlewares/errorHandler';
 import clientBundle from './middlewares/clientBundle';
+import logger from './logger';
+
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -18,6 +20,7 @@ if (!isDev) {
 
 // Frontend Middleware
 if (isDev) {
+  /* eslint-disable global-require */
   const webpackClientConfig = require('../../internal/webpack/client.dev.config.js').default;
   addDevMiddleware(app, { webpackConfig: webpackClientConfig });
 }
@@ -31,7 +34,7 @@ app.use(mount('/', frontendMiddleware()));
 app.use(errorHandlerMiddleware);
 
 const server = app.listen(config.port, config.host, () =>
-  console.log(`Server listening on port ${config.port}`),
+  logger.info(`Server listening on port ${config.port}`),
 );
 
 export default server;

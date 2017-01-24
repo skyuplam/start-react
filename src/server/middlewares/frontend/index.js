@@ -9,31 +9,27 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import helmet from 'react-helmet';
 import webpack from 'webpack';
-import mount from 'koa-mount';
-import serve from 'koa-static';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import path from 'path';
 import { ServerRouter, createServerRenderContext } from 'react-router';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
 import HTMLGenerator from './HTMLGenerator';
+import logger from '../../logger';
 import App from '../../../client/containers/App';
-import { AppContainer } from 'react-hot-loader';
+import ReactHotReloader from '../../../client/components/ReactHotReloader';
 
+// function readFile(fs, path) {
+  // return new Promise((resolve, reject) =>
+    // fs.readFile(path, (err, file) =>
+      // err ? reject(err) : resolve(file)
+    // )
+  // );
+// }
 
-function readFile(fs, path) {
-  return new Promise((resolve, reject) =>
-    fs.readFile(path, (err, file) =>
-      err ? reject(err) : resolve(file)
-    )
-  );
-}
-
-const getFsMiddleware = (fs, options) => async function fsMiddleware(ctx, next) {
-  const { path } = options;
-  const file = await readFile(fs, path);
-  await next();
-  return file;
-};
+// const getFsMiddleware = (fs, options) => async function fsMiddleware(ctx, next) {
+  // const { path } = options;
+  // const file = await readFile(fs, path);
+  // await next();
+  // return file;
+// };
 
 
 // Dev middleware
@@ -53,19 +49,18 @@ export const addDevMiddleware = (app, options) => {
 
   clientBundler.plugin('done', (stats) => {
     if (stats.hasErrors()) {
-      console.error(stats.toString());
+      logger.error(stats.toString());
     } else {
-      console.log('Running the latest changes...');
+      logger.info('Running the latest changes...');
     }
-  })
+  });
 
   app.use(clientMiddleware);
   app.use(hotMiddleware(clientBundler));
-
 };
 
 
-const middleware = (options) => async function frontendMiddleware(ctx, next) {
+const middleware = () => async function frontendMiddleware(ctx, next) {
   const { request, response } = ctx;
 
   // first create a context for <ServerRouter>, it's where we keep the
@@ -78,12 +73,12 @@ const middleware = (options) => async function frontendMiddleware(ctx, next) {
       location={request.url}
       context={context}
     >
-      <AppContainer>
+      <ReactHotReloader>
         <App />
-      </AppContainer>
+      </ReactHotReloader>
     </ServerRouter>
   );
-  let renderedString = renderToString(contentToBeRender);
+  const renderedString = renderToString(contentToBeRender);
 
   // Get the result
   const result = context.getResult();
