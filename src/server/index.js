@@ -16,7 +16,7 @@ app.use(compress());
 
 // Frontend Middleware
 if (isDev) {
-  const webpackConfig = require('../../internal/webpack/client.dev.config.js').default;
+  const webpackClientConfig = require('../../internal/webpack/client.dev.config.js').default;
   addDevMiddleware(app, { webpackConfig: webpackClientConfig });
 }
 

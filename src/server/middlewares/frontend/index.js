@@ -30,7 +30,6 @@ function readFile(fs, path) {
 
 const getFsMiddleware = (fs, options) => async function fsMiddleware(ctx, next) {
   const { path } = options;
-  console.log(path);
   const file = await readFile(fs, path);
   await next();
   return file;
