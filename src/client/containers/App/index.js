@@ -1,18 +1,21 @@
 import React from 'react';
-import { Match, Miss } from 'react-router';
+import Switch from 'react-router/Switch';
+import Route from 'react-router/Route';
 
 
 const App = () =>
   <div>
     <p>DEMO</p>
-    <Match
-      exactly
-      pattern="/"
-      render={() =>
-        (<p>Home</p>)
-      }
-    />
-    <Miss component={() => (<p>Page Not Found</p>)} />
+    <Switch>
+      <Route
+        exact
+        to="/"
+        render={() =>
+            (<p>Home</p>)
+        }
+      />
+      <Route render={() => (<p>Not Found!</p>)} />
+    </Switch>
   </div>;
 
 

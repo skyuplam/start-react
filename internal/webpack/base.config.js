@@ -1,5 +1,4 @@
 import webpack from 'webpack';
-import { removeEmpty, happypack } from '../utils';
 import path from 'path';
 
 
@@ -13,6 +12,7 @@ const webpackConfig = (options) => ({
 
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
 
   devtool: options.devtool,
@@ -30,33 +30,24 @@ const webpackConfig = (options) => ({
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    happypack({
-      name: 'happypack-js',
-      loaders: [{
-        path: 'babel-loader',
-        query: {
-          babelrc: false,
-          presets: [
-            'react',
-            'stage-3',
-            options.target === 'node' ?
-              ['latest', { es2015: { modules: false }}] :
-              ['env', { targets: { node: true } }],
-          ],
-          plugins: options.babelPlugins,
-        },
-      }],
-    }),
   ]),
 
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
-      loader: 'happypack/loader',
+      loader: 'babel-loader',
       options: {
-        id: 'happypack-js',
+        babelrc: false,
+        presets: [
+          'react',
+          'stage-3',
+          options.target === 'node' ?
+            ['env', { targets: { node: true } }] :
+            ['env', { modules: false }],
+        ],
+        plugins: options.babelPlugins,
       },
-      include: options.sourceInclude,
+      exclude: /node_modules/,
     }, {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
       loader: 'file-loader',

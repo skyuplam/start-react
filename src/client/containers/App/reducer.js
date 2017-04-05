@@ -1,6 +1,6 @@
-import { fromJS } from 'immutable';
+import Immutable from 'seamless-immutable';
 
-const initialState = fromJS({});
+const initialState = Immutable({});
 
 
 function appReducer(state = initialState, action) {

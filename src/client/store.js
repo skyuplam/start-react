@@ -1,5 +1,5 @@
 import { createStore, compose } from 'redux';
-import { fromJS } from 'immutable';
+import Immutable from 'seamless-immutable';
 
 import createReducer from './reducers';
 
@@ -15,7 +15,7 @@ export default function configureStore(initialState = {}) {
 
   const store = createStore(
     createReducer(),
-    fromJS(initialState),
+    Immutable(initialState),
     composeEnhancers(),
   );
 

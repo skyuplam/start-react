@@ -1,27 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-// import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router';
+import { AppContainer } from 'react-hot-loader';
+import App from './main';
 
-import App from './containers/App';
-import ReactHotReloader from './components/ReactHotReloader';
-import createStore from './store';
-
-/* eslint-disable no-underscore-dangle */
-const initialState = window.__APP_STATE__ || {};
-const store = createStore(initialState);
 
 const rootEl = document.getElementById('app');
 const render = (Component) => {
   ReactDOM.render(
-    <Provider store={store}>
-      <ReactHotReloader>
-        <BrowserRouter>
-          <Component />
-        </BrowserRouter>
-      </ReactHotReloader>
-    </Provider>,
+    <AppContainer>
+      <Component />
+    </AppContainer>,
     rootEl
   );
 };
@@ -31,7 +19,7 @@ render(App);
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./index.js');
-  module.hot.accept('./containers/App', () => {
+  module.hot.accept('./main.js', () => {
     render(App);  // Using Webpack 2, no require again. see https://webpack.js.org/guides/hmr-react/#code
   });
 }
